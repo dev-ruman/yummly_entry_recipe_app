@@ -1,7 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:yummly_entry_recipe_app/models/recipe_api.dart';
 
-class RecipeCard extends StatelessWidget {
+class RecipeCard extends StatefulWidget {
   const RecipeCard({super.key});
+
+  @override
+  State<RecipeCard> createState() => _RecipeCardState();
+}
+
+class _RecipeCardState extends State<RecipeCard> {
+  late List _recipes;
+  bool isLoading = true;
+  @override
+  void initState() {
+    super.initState();
+    getRecipes();
+  }
+
+  Future<void> getRecipes() async {
+    _recipes = await RecipeApi.getRecipe();
+    setState(() {
+      isLoading = false;
+    });
+    print(_recipes);
+    print('hello');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +46,7 @@ class RecipeCard extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(8),
             child: Text(
-              'lorem adshfkjahskjhfkhjflhjjashkjkjjjjkhjhhkjfdsaffa',
+              'Voluptate reprehenderit exercitation esse proident exercitation laboris ad eu proident deserunt dolore amet elit.',
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(fontSize: 14, color: Colors.grey[600]),
